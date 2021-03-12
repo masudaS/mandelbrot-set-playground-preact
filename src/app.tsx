@@ -1,20 +1,35 @@
 import { render } from "preact";
+import { useRef, useState } from "preact/hooks";
 
 const Canvas = {
   Width: 800,
   Height: 800
 }
 
-const App = () => (
-  <div>
-    <canvas width={Canvas.Width} height={Canvas.Height}></canvas>
-    <br />
-    中心のx座標:<input type="number" value={0}></input>
-    中心のy座標:<input type="number" value={0}></input>
-    拡大率:<input  type="number" value={400}></input>
-    <button>更新</button>
-  </div>
-)
+const initialState = {
+  x: 0, y: 0, expansionRate: 400
+}
+
+const App = () => {
+  const [{ x, y, expansionRate }, setState] = useState(initialState);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const onClickUpdate = () => {
+    const ctx = canvasRef.current.getContext("2d")!;
+    ctx.fillRect(100, 100, 200, 300)
+  }
+
+  return (
+    <div>
+      <canvas width={Canvas.Width} height={Canvas.Height} ref={canvasRef}></canvas>
+      <br />
+      中心のx座標:<input type="number" value={x}></input>
+      中心のy座標:<input type="number" value={y}></input>
+      拡大率:<input type="number" value={expansionRate}></input>
+      <button onClick={onClickUpdate}>更新</button>
+    </div>
+  )
+}
+  
 
 render(
   <App />,
