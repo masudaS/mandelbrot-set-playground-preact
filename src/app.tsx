@@ -1,5 +1,5 @@
 import { render } from "preact";
-import { useRef, useState } from "preact/hooks";
+import { useRef, useState, useEffect } from "preact/hooks";
 import { renderMBSet } from "./lib";
 
 const Canvas = {
@@ -18,6 +18,7 @@ const App = () => {
     const ctx = canvasRef.current.getContext("2d")!;
     renderMBSet(ctx, { x, y }, expansionRate);
   }
+  useEffect(onClickUpdate, [])
 
   return (
     <div>
