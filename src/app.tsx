@@ -1,5 +1,6 @@
 import { render } from "preact";
 import { useRef, useState } from "preact/hooks";
+import { renderMBSet } from "./lib";
 
 const Canvas = {
   Width: 800,
@@ -15,7 +16,7 @@ const App = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const onClickUpdate = () => {
     const ctx = canvasRef.current.getContext("2d")!;
-    ctx.fillRect(100, 100, 200, 300)
+    renderMBSet(ctx, { x, y }, expansionRate);
   }
 
   return (
@@ -30,7 +31,6 @@ const App = () => {
   )
 }
   
-
 render(
   <App />,
   document.getElementById("app")!
